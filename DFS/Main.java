@@ -1,33 +1,30 @@
 package DFS;
 
-import java.util.LinkedList;
-import java.util.Scanner;
-
-public class Main{
+public class Main {
 
     public static void main(String[] args) {
-        // Exemplo de uso
-        LinkedList<LinkedList<Integer>> grafo = new LinkedList<>();
-        int numVertices = 6; // Defina o número de vértices do seu grafo
+        // Exemplo de uma matriz de adjacência para um grafo não direcionado
+        boolean[][] grafo = {
+                {false, true, true, false, false},
+                {true, false, true, true, false},
+                {true, true, false, false, true},
+                {false, true, false, false, true},
+                {false, false, true, true, false}
+        };
 
-        for (int i = 0; i < numVertices; i++) {
-            grafo.add(new LinkedList<>());
-        }
+        // Vértice de origem para iniciar a busca em profundidade (DFS)
+        int verticeOrigem = 0;
 
-        // Adicione as arestas ao seu grafo
-        grafo.get(0).add(1);
-        grafo.get(0).add(2);
-        grafo.get(1).add(3);
-        grafo.get(2).add(4);
-        grafo.get(3).add(5);
+        // Criar um objeto DFSGrafo com a matriz de adjacência
+        DFSGrafo dfsGrafo = new DFSGrafo(grafo);
 
-        DFSGrafo execucao = new DFSGrafo(grafo);
-        execucao.dfs_start(0);
-        
-        // Você pode acessar as distâncias e o antecessor de cada vértice
-        for (int u = 0; u < numVertices; u++) {
-            System.out.println("Vértice " + u + ": Distância=" + execucao.d[u] + ", Antecessor=" + execucao.ante[u]);
+        // Executar a busca em profundidade a partir do vértice de origem
+        dfsGrafo.dfs_start(verticeOrigem);
+
+        // Exibir os resultados da busca em profundidade
+        System.out.println("Resultados da busca em profundidade a partir do vértice " + verticeOrigem + ":");
+        for (int i = 0; i < grafo.length; i++) {
+            System.out.println("Vértice " + i + ": Início = " + dfsGrafo.i[i] + ", Fim = " + dfsGrafo.f[i] + ", Antecessor = " + dfsGrafo.ante[i]);
         }
     }
-    
 }
